@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <style>
+        /* Add your CSS styles here */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        form {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        input[type="text"] {
+            padding: 10px;
+            width: 100%;
+            font-size: 16px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            margin-bottom: 10px;
+        }
+
+        input[type="submit"], button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #4caf50;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+
+        .error-message {
+            color: red;
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        .data-container {
+            margin-top: 20px;
+            text-align: center;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .data-container h2 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .data-container p {
+            font-size: 18px;
+            color: #333;
+            word-wrap: break-word;
+        }
+
+        .data-container a {
+            color: #4caf50;
+            text-decoration: none;
+            margin-left: 10px;
+        }
+
+        .data-container a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Flask Encryption Example</h1>
+        {% if err_mes %}
+            <p class="error-message">{{ err_mes }}</p>
+        {% endif %}
+        <form action="{{ url_for('index') }}" method="post">
+            <input name="data" type="text" placeholder="Enter your data">
+            <input type="submit" value="Encrypt">
+        </form>
+        {% if session.encrypted_data %}
+            <div class="data-container">
+                <h2>Encrypted Data</h2>
+                <p>{{ session.encrypted_data }}</p>
+            </div>
+        <div class='container'>
+        
+            <div class="data-container">
+                <h2>Decrypted Data</h2>
+                <p><strong>{{ session.encrypted_data | decrypt(key) }}</strong></p>
+                <h2>How it really works!</h2>
+                <p>The Flask framework uses a secret key  to encrypt and decrypt session data. When you submit the form, the data is encrypted using this secret key <b>'{{ key }}'</b> and stored in the session. The encrypted data is then retrieved from the session, and Flask uses the secret key to decrypt it and display the original data.</p>
+            </div>
+        {% endif %}
+        </div>
+    </div>
+</body>
+</html>
